@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document
 
-public class CreateContactResponse {
+public class ContactRemoveResponse {
 
     private String id;
     private String message;

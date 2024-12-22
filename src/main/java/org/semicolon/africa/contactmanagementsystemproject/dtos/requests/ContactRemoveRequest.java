@@ -6,14 +6,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document
 
-public class CreateContactRequest {
+public class ContactRemoveRequest {
 
-    private String firstName;
-    private String lastName;
-    private String email;
+    private String id;
+    private String name;
     private String phone;
+    private String email;
     private String address;
-
-
-
 }

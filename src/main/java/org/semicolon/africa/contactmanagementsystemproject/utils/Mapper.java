@@ -1,11 +1,10 @@
 package org.semicolon.africa.contactmanagementsystemproject.utils;
 
-import org.apache.coyote.Request;
 import org.semicolon.africa.contactmanagementsystemproject.data.model.Contact;
 import org.semicolon.africa.contactmanagementsystemproject.data.model.User;
-import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.CreateContactRequest;
+import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.ContactRegisterRequest;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.RegisterUserRequest;
-import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.CreateContactResponse;
+import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactRegisterResponse;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.LoginUserResponse;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.RegisterUserResponse;
 
@@ -35,7 +34,7 @@ public class Mapper {
         return loginUserResponse;
     }
 
-    public static void mapContact(CreateContactRequest contactRequest, Contact contact) {
+    public static void mapContact(ContactRegisterRequest contactRequest, Contact contact) {
         contact.setFirstName(contactRequest.getFirstName());
         contact.setLastName(contactRequest.getLastName());
         contact.setEmail(contactRequest.getEmail());
@@ -43,10 +42,10 @@ public class Mapper {
         contact.setPhoneNumber(contactRequest.getPhone());
     }
 
-    public static CreateContactResponse mapContact(Contact contact) {
-        CreateContactResponse createContactResponse = new CreateContactResponse();
-        createContactResponse.setMessage("Successfully created!");
-        createContactResponse.setId(contact.getId());
-        return createContactResponse;
+    public static ContactRegisterResponse mapContact(Contact contact) {
+        ContactRegisterResponse contactRegisterResponse = new ContactRegisterResponse();
+        contactRegisterResponse.setMessage("Successfully created!");
+        contactRegisterResponse.setId(contact.getId());
+        return contactRegisterResponse;
     }
 }
