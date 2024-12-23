@@ -8,10 +8,13 @@ import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.Regist
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface  UserService {
     RegisterUserResponse register (RegisterUserRequest registerUserRequest);
+
+    Optional<User> findUserById(String userId);
 
     List<User> getAllUsers();
 

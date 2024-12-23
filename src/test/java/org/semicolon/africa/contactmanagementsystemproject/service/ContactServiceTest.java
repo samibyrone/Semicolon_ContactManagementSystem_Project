@@ -35,8 +35,8 @@ public class ContactServiceTest {
         contactRequest.setPhone("080");
         ContactRegisterResponse contactResponse = contactService.createContact(contactRequest);
         assertThat(contactResponse).isNotNull();
-//        assertThat(contactService.getAllContacts()).isEqualTo (1L);
         assertThat(contactResponse.getMessage()).contains("Successfully created!");
+//        assertThat(contactService.getAllContacts()).isEqualTo (1L);
     }
 
 

@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document
 
-public class ContactRegisterRequest {
+public class ContactUpdatesRequest {
 
     private String firstName;
     private String lastName;

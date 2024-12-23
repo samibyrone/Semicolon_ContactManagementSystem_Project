@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.semicolon.africa.contactmanagementsystemproject.utils.Mapper.map;
 import static org.semicolon.africa.contactmanagementsystemproject.utils.Mapper.mapLogin;
@@ -29,6 +30,11 @@ public class UserServiceImplementation implements UserService{
         map(registerUserRequest, user);
         userRepository.save(user);
         return map(user);
+    }
+
+    @Override
+    public Optional<User> findUserById(String userId) {
+        return Optional.empty();
     }
 
     private void validateExistingEmail(String email) {

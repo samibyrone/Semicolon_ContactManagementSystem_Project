@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document
 
-public class ContactRegisterResponse {
+public class ContactUpdatesResponse {
 
     @Id
     private String contactId;

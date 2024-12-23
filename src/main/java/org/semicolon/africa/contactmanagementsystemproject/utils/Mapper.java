@@ -3,8 +3,10 @@ package org.semicolon.africa.contactmanagementsystemproject.utils;
 import org.semicolon.africa.contactmanagementsystemproject.data.model.Contact;
 import org.semicolon.africa.contactmanagementsystemproject.data.model.User;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.ContactRegisterRequest;
+import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.ContactUpdatesRequest;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.RegisterUserRequest;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactRegisterResponse;
+import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactUpdatesResponse;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.LoginUserResponse;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.RegisterUserResponse;
 
@@ -43,9 +45,24 @@ public class Mapper {
     }
 
     public static ContactRegisterResponse mapContact(Contact contact) {
-        ContactRegisterResponse contactRegisterResponse = new ContactRegisterResponse();
-        contactRegisterResponse.setMessage("Successfully created!");
-        contactRegisterResponse.setId(contact.getId());
-        return contactRegisterResponse;
+        ContactRegisterResponse contactResponse = new ContactRegisterResponse();
+        contactResponse.setContactId(contact.getContactId());
+        contactResponse.setMessage("Successfully created!");
+        return contactResponse;
+    }
+
+    public static void mapContactUpdate(ContactUpdatesRequest contactUpdate, Contact contact) {
+        contact.setFirstName(contactUpdate.getFirstName());
+        contact.setLastName(contactUpdate.getLastName());
+        contact.setEmail(contactUpdate.getEmail());
+        contact.setAddress(contactUpdate.getAddress());
+        contact.setPhoneNumber(contactUpdate.getPhone());
+    }
+
+    public static ContactUpdatesResponse mapContactUpdate(Contact contact) {
+        ContactUpdatesResponse contactUpdated = new ContactUpdatesResponse();
+        contactUpdated.setMessage("Successfully Was Successfully Updated");
+        contactUpdated.setContactId(contact.getContactId());
+        return contactUpdated;
     }
 }
