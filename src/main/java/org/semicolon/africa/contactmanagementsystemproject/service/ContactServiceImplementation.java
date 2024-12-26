@@ -11,8 +11,10 @@ import static org.semicolon.africa.contactmanagementsystemproject.utils.Mapper.m
 
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactRemoveResponse;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactUpdatesResponse;
+import org.semicolon.africa.contactmanagementsystemproject.exceptions.ContactAlreadyExisted;
 import org.semicolon.africa.contactmanagementsystemproject.exceptions.ContactNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +29,9 @@ public class ContactServiceImplementation implements ContactService {
 
     @Autowired
     private UserService userService;
+    @Qualifier("contactService")
+    @Autowired
+    private ContactService contactService;
 
 
     @Override
@@ -42,25 +47,20 @@ public class ContactServiceImplementation implements ContactService {
 
     @Override
     public ContactRegisterResponse createContact(ContactRegisterRequest contactRegisterRequest){
-        User user = new User();
-        validateUser(user.getId());
+        validateContact(contactRegisterRequest.getContactId());
         Contact contact = new Contact();
         mapContact(contactRegisterRequest, contact);
-        Contact newContact = contactRepository.save(contact);
-        return mapContact(newContact);
+        contactRepository.save(contact);
+        return mapContact(contact);
     }
 
-    private void validateUser(String userId) {
-        Optional <User> validUser = userService.findUserById(userId);
-        if (validUser.isPresent()) { User user = validUser.get();
-            if (user.getId() == null || user.getId().isEmpty()) { contactRepository.save(new Contact()); }
-        } else { throw new ContactNotFoundException("Contact Does not exist"); }
+    private void validateContact(String contactId) {
+        boolean contactExisted = contactRepository.existsById(contactId);
+            if (contactExisted) throw new ContactAlreadyExisted("Contact Already Existed");
     }
 
     @Override
     public ContactUpdatesResponse updateContact(String contactId, ContactUpdatesRequest contactUpdatesRequest) {
-        User user = new User();
-        validateUser(user.getId());
         Contact contact = contactRepository.findById(contactId)
                 .orElseThrow( () -> new ContactNotFoundException("Contact does not exist"));
         mapContactUpdate(contactUpdatesRequest, contact);
