@@ -34,14 +34,14 @@ public class ContactServiceTest {
         ContactRegisterResponse contactResponse = ContactRegister();
         assertThat(contactResponse).isNotNull();
         assertThat(contactResponse.getMessage()).contains("Contact Was Successfully Created!");
-        assertThat(contactService.getAllContacts()).isEqualTo (1L);
+        assertThat(contactService.getAllContacts()).isEqualTo(1);
     }
 
     private ContactRegisterResponse ContactRegister() {
         ContactRegisterRequest contactRequest = new ContactRegisterRequest();
-        contactRequest.setContactId("542");
         contactRequest.setFirstName("John");
         contactRequest.setLastName("Doe");
+        contactRequest.setUserName("johnDoe");
         contactRequest.setEmail("john@doe.com");
         contactRequest.setAddress("Lagos, Yaba");
         contactRequest.setPhone("080");

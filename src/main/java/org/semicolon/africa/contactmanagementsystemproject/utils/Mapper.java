@@ -4,6 +4,7 @@ import org.semicolon.africa.contactmanagementsystemproject.data.model.Contact;
 import org.semicolon.africa.contactmanagementsystemproject.data.model.User;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.ContactRegisterRequest;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.ContactUpdatesRequest;
+import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.LoginUserRequest;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.RegisterUserRequest;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactRegisterResponse;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactUpdatesResponse;
@@ -28,6 +29,11 @@ public class Mapper {
         return registerUserResponse;
     }
 
+    public static void mapLogin(LoginUserRequest loginUserRequest, User user) {
+        user.setEmail(loginUserRequest.getEmail());
+        user.setPassword(loginUserRequest.getPassword());
+    }
+
     public static LoginUserResponse mapLogin(User user) {
         LoginUserResponse loginUserResponse = new LoginUserResponse();
         user.setEmail(user.getEmail());
@@ -39,6 +45,7 @@ public class Mapper {
     public static void mapContact(ContactRegisterRequest contactRequest, Contact contact) {
         contact.setFirstName(contactRequest.getFirstName());
         contact.setLastName(contactRequest.getLastName());
+        contact.setUserName(contactRequest.getUserName());
         contact.setEmail(contactRequest.getEmail());
         contact.setAddress(contactRequest.getAddress());
         contact.setPhoneNumber(contactRequest.getPhone());
@@ -46,8 +53,8 @@ public class Mapper {
 
     public static ContactRegisterResponse mapContact(Contact contact) {
         ContactRegisterResponse contactResponse = new ContactRegisterResponse();
-        contactResponse.setContactId(contact.getContactId());
-        contactResponse.setMessage("Successfully created!");
+//        contactResponse.se
+        contactResponse.setMessage("Contact Was Successfully Created!");
         return contactResponse;
     }
 

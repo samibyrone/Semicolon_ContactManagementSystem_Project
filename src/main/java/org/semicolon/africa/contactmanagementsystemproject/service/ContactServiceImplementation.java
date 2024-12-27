@@ -27,13 +27,6 @@ public class ContactServiceImplementation implements ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
-    @Autowired
-    private UserService userService;
-    @Qualifier("contactService")
-    @Autowired
-    private ContactService contactService;
-
-
     @Override
     public List<Contact> getAllContacts() {
         return contactRepository.findAll();

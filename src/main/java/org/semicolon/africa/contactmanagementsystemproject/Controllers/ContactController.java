@@ -30,7 +30,7 @@ public class ContactController {
     @GetMapping("/{contactId}")
     public ResponseEntity<ContactRegisterResponse> getContactById(@PathVariable String contactId) {
         var contact = contactService.getContactById(contactId);
-        ContactRegisterResponse contactResponse = mapContact((Contact) contact);
+        ContactRegisterResponse contactResponse = mapContact(contact);
         return ResponseEntity.status(OK).body(contactResponse);
     }
 
