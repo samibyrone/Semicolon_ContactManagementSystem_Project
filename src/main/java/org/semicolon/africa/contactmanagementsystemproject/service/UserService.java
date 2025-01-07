@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public interface  UserService {
+
     RegisterUserResponse register (RegisterUserRequest registerUserRequest);
 
     Optional<User> findUserById(String userId);

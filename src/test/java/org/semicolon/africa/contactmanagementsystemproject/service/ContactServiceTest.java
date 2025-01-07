@@ -31,52 +31,53 @@ public class ContactServiceTest {
 
     @Test
     public void testThatContactCanBeAdded() {
-        ContactRegisterResponse contactResponse = ContactRegister();
+        ContactRegisterResponse contactResponse = contactRegister();
         assertThat(contactResponse).isNotNull();
         assertThat(contactResponse.getMessage()).contains("Contact Was Successfully Created!");
-        assertThat(contactService.getAllContacts()).isEqualTo(1);
+        assertThat(contactService.getAllContacts().size()).isEqualTo(1L);
     }
 
-    private ContactRegisterResponse ContactRegister() {
+    private ContactRegisterResponse contactRegister() {
         ContactRegisterRequest contactRequest = new ContactRegisterRequest();
         contactRequest.setFirstName("John");
         contactRequest.setLastName("Doe");
         contactRequest.setUserName("johnDoe");
         contactRequest.setEmail("john@doe.com");
         contactRequest.setAddress("Lagos, Yaba");
-        contactRequest.setPhone("080");
-        ContactRegisterResponse contactResponse = contactService.createContact(contactRequest);
-        return contactResponse;
+        contactRequest.setPhone("08012345678");
+        return contactService.createContact(contactRequest);
     }
 
     @Test
     public void testThatContactSavedCanBeUpdated() {
-        ContactRegister();
-        ContactUpdatesRequest contactUpdate = new ContactUpdatesRequest();
-        contactUpdate.setFirstName("Johnson");
-        contactUpdate.setLastName("Dior");
-        contactUpdate.setEmail("johnson@.com");
-        contactUpdate.setAddress("Lagos, onike sabo-yaba");
-        contactUpdate.setPhone("08064387215");
-        ContactUpdatesResponse updatesResponse = contactService.updateContact("542", contactUpdate);
-        assertThat(updatesResponse).isNotNull();
-        assertThat(updatesResponse.getMessage()).contains("Contact Was Successfully Created");
-        assertThat(contactService.getAllContacts()).isEqualTo(1L);
+        ContactRegisterResponse updatesResponse = contactRegister();
+        String contactId = updatesResponse.getContactId();
+        ContactUpdatesRequest updateRequest = new ContactUpdatesRequest();
+        updateRequest.setFirstName("Johnson");
+        updateRequest.setLastName("Dior");
+        updateRequest.setEmail("johnson@.com");
+        updateRequest.setAddress("Lagos, onike sabo-yaba");
+        updateRequest.setPhone("08064387215");
+        ContactUpdatesResponse updateResponse = contactService.updateContact(contactId, updateRequest);
+        assertThat(updateResponse).isNotNull();
+        assertThat(updateResponse.getMessage()).contains("Successfully Was Successfully Updated");
+        assertThat(contactService.getAllContacts().size()).isEqualTo(1L);
     }
 
     @Test
     public void testThatContactSavedCanBeDeleted() {
-        ContactRegister();
+        ContactRegisterResponse removeResponse = contactRegister();
+        String contactId = removeResponse.getContactId();
         ContactRemoveRequest contactRemove = new ContactRemoveRequest();
-        contactRemove.setContactId("952");
-        contactRemove.setFirstName("Kent");
-        contactRemove.setLastName("Donald");
-        contactRemove.setEmail("kent@donald.com");
-        contactRemove.setAddress("Lagos, Festac-town");
-        contactRemove.setPhone("08099934210");
-        ContactRemoveResponse removeResponse = contactService.removeContact("952");
-        assertThat(removeResponse).isNotNull();
-        assertThat(removeResponse.getMessage()).contains("Contact Was Successfully Removed");
-        assertThat(contactService.getAllContacts()).isEqualTo(0);
+//        contactRemove.setContactId("952");
+        contactRemove.setFirstName("john");
+        contactRemove.setLastName("Doe");
+        contactRemove.setEmail("john@doe.com");
+        contactRemove.setAddress("Lagos, yaba");
+        contactRemove.setPhone("08012345678");
+        ContactRemoveResponse removedResponse = contactService.removeContact(contactId, contactRemove);
+        assertThat(removedResponse).isNotNull();
+        assertThat(removedResponse.getMessage()).contains("Contact Removed Successfully");
+        assertThat(contactService.getAllContacts().size()).isEqualTo(0);
     }
 }

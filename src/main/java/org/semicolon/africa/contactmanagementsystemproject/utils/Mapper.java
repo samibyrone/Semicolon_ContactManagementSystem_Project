@@ -53,7 +53,7 @@ public class Mapper {
 
     public static ContactRegisterResponse mapContact(Contact contact) {
         ContactRegisterResponse contactResponse = new ContactRegisterResponse();
-//        contactResponse.se
+        contactResponse.setContactId(contact.getContactId());
         contactResponse.setMessage("Contact Was Successfully Created!");
         return contactResponse;
     }

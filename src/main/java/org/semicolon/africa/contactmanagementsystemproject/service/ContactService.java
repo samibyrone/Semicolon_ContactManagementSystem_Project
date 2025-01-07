@@ -18,9 +18,11 @@ public interface ContactService {
 
     Contact getContactById(String contactId);
 
+    Contact getContactByFirstName(String firstName, ContactRegisterRequest registerRequest);
+
     ContactRegisterResponse createContact(ContactRegisterRequest contactRegisterRequest);
 
-    ContactRemoveResponse removeContact(String contactId);
+    ContactRemoveResponse removeContact(String contactId, ContactRemoveRequest contactRemoveRequest);
 
     ContactUpdatesResponse updateContact(String contactId, ContactUpdatesRequest contactUpdatesRequest);
 }

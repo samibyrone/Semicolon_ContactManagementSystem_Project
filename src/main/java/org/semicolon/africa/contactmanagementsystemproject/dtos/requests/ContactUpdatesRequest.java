@@ -1,6 +1,7 @@
 package org.semicolon.africa.contactmanagementsystemproject.dtos.requests;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -8,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 public class ContactUpdatesRequest {
 
+    @Id
+    private String contactId;
     private String firstName;
     private String lastName;
     private String email;
