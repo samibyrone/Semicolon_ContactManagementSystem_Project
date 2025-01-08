@@ -9,6 +9,7 @@ import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.Contac
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactUpdatesResponse;
 import org.semicolon.africa.contactmanagementsystemproject.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,16 +29,15 @@ public class ContactController {
         return contactService.getAllContacts();
     }
 
-    @GetMapping("/getContactById")
-    public ResponseEntity<?> getContactById(@RequestBody ContactRegisterRequest registerRequest) {
-        ContactRegisterResponse contactResponse = contactService.getContactById(registerRequest);
-        return ResponseEntity.status(OK).body(contactResponse);
+    @GetMapping("/getContactById/{contactId}")
+    public ResponseEntity<?> getContactById(@PathVariable("contactId") String contactId) {
+        Contact contactResponse = contactService.getContactById(contactId);
+        return ResponseEntity.status(HttpStatus.OK).body(contactResponse);
     }
 
-    @GetMapping("/getContactByFirstName")
-    public ResponseEntity<?> getContactByFirstName(@PathVariable String firstName, @RequestBody ContactRegisterRequest registerRequest) {
-//        var contact = contactService.getContactByFirstName(firstName);
-        ContactRegisterResponse contactResponse = contactService.getContactByFirstName(firstName, registerRequest);
+    @GetMapping("/getContactByFirstName/{firstName}")
+    public ResponseEntity<?> getContactByFirstName(@PathVariable("firstName") String firstName, @RequestBody ContactRegisterRequest registerRequest) {
+        Contact contactResponse = contactService.getContactByFirstName(firstName, registerRequest);
         return ResponseEntity.status(OK).body(contactResponse);
     }
 
@@ -47,14 +47,14 @@ public class ContactController {
         return ResponseEntity.status(OK).body(contacts);
     }
 
-    @PutMapping("/updateContact")
-    public ResponseEntity<?> updateContact(@PathVariable String contactId, @RequestBody ContactUpdatesRequest contactUpdate) {
+    @PutMapping("/updateContact/{contactId}")
+    public ResponseEntity<?> updateContact(@PathVariable("contactId") String contactId, @RequestBody ContactUpdatesRequest contactUpdate) {
         ContactUpdatesResponse contactResponse = contactService.updateContact(contactId, contactUpdate);
         return ResponseEntity.status(OK).body(contactResponse);
     }
 
-    @DeleteMapping("/deleteContact")
-    public ResponseEntity<?> deleteContact(@PathVariable String contactId, @RequestBody ContactRemoveRequest contactDelete) {
+    @DeleteMapping("/deleteContact/{contactId}")
+    public ResponseEntity<?> deleteContact(@PathVariable("contactId") String contactId, @RequestBody ContactRemoveRequest contactDelete) {
         ContactRemoveResponse deleteResponse = contactService.removeContact(contactId, contactDelete);
         return ResponseEntity.status(OK).body(deleteResponse);
     }

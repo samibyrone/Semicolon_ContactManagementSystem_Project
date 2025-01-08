@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 
 public class RegisterUserRequest {
+
     private String firstName;
     private String lastName;
     private String email;

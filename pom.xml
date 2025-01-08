@@ -64,6 +64,7 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </exclude>
+                        <argLine>-XX:+EnableDynamicAgentLoading</argLine>
                     </excludes>
                 </configuration>
             </plugin>

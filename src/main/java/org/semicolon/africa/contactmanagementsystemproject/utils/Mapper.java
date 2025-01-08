@@ -36,7 +36,7 @@ public class Mapper {
 
     public static LoginUserResponse mapLogin(User user) {
         LoginUserResponse loginUserResponse = new LoginUserResponse();
-        user.setEmail(user.getEmail());
+        loginUserResponse.setEmail(user.getEmail());
         loginUserResponse.setMessage("Successfully logged in!");
         loginUserResponse.setLoggedIn(true);
         return loginUserResponse;
@@ -48,7 +48,7 @@ public class Mapper {
         contact.setUserName(contactRequest.getUserName());
         contact.setEmail(contactRequest.getEmail());
         contact.setAddress(contactRequest.getAddress());
-        contact.setPhoneNumber(contactRequest.getPhone());
+        contact.setPhoneNumber(contactRequest.getPhoneNumber());
     }
 
     public static ContactRegisterResponse mapContact(Contact contact) {
@@ -68,7 +68,7 @@ public class Mapper {
 
     public static ContactUpdatesResponse mapContactUpdate(Contact contact) {
         ContactUpdatesResponse contactUpdated = new ContactUpdatesResponse();
-        contactUpdated.setMessage("Successfully Was Successfully Updated");
+        contactUpdated.setMessage("Contact Was Successfully Updated");
         contactUpdated.setContactId(contact.getContactId());
         return contactUpdated;
     }

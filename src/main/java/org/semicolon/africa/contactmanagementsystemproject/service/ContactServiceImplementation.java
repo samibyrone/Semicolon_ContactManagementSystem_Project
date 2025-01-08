@@ -13,6 +13,7 @@ import static org.semicolon.africa.contactmanagementsystemproject.utils.Mapper.m
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactRemoveResponse;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.responses.ContactUpdatesResponse;
 import org.semicolon.africa.contactmanagementsystemproject.exceptions.ContactAlreadyExisted;
+import org.semicolon.africa.contactmanagementsystemproject.exceptions.ContactIdNotFoundException;
 import org.semicolon.africa.contactmanagementsystemproject.exceptions.ContactNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class ContactServiceImplementation implements ContactService {
     }
 
     @Override
-    public Contact getContactByFirstName(String firstName, ContactRegisterRequest registerRequest) throws ContactNotFoundException {
+    public Contact getContactByFirstName(String firstName, ContactRegisterRequest registerRequest) {
         return contactRepository.findContactByFirstName(firstName)
                 .orElseThrow( () -> new ContactNotFoundException("Contact first name not found"));
     }
@@ -53,16 +54,14 @@ public class ContactServiceImplementation implements ContactService {
         Contact contact = new Contact();
         mapContact(contactRegisterRequest, contact);
         contactRepository.save(contact);
+        System.out.print(contact.getAddress());
         return mapContact(contact);
     }
 
-
     @Override
     public ContactRemoveResponse removeContact(String contactId, ContactRemoveRequest contactRemoveRequest) {
-        validateContact(contactRemoveRequest.getContactId());
-        Contact contact = contactRepository.findById(contactId)
-                .orElseThrow( () -> new ContactNotFoundException("Contact Does not exist"));
-        contact.setContactId(contactId);
+        Optional <Contact> findContact = contactRepository.findById(contactId);
+        if (!findContact.isPresent()) { throw  new ContactNotFoundException("Contact Does not exist"); }
         contactRepository.deleteById(contactId);
         ContactRemoveResponse removeResponse = new ContactRemoveResponse();
         removeResponse.setMessage("Contact Removed Successfully");
@@ -71,21 +70,17 @@ public class ContactServiceImplementation implements ContactService {
 
     private void validateContact(String contactId) {
         Optional <User> contactExisted = userService.findUserById(contactId);
-        if (contactExisted.isPresent()) {
-            throw new ContactAlreadyExisted("Contact Already Existed");
-        } else {
-            Contact contact = new Contact();
-            contactRepository.save(contact);
-        }
+        if (contactExisted.isPresent()) throw new ContactAlreadyExisted("Contact Already Existed");
     }
 
     @Override
     public ContactUpdatesResponse updateContact(String contactId, ContactUpdatesRequest contactUpdatesRequest) {
-        validateContact(contactUpdatesRequest.getContactId());
+        validateContact(contactId);
         Contact contact = contactRepository.findById(contactId)
-                .orElseThrow( () -> new ContactNotFoundException("Contact does not exist"));
+                .orElseThrow( () ->  new ContactNotFoundException("Contact Does not exist"));
+        if(contactId == null || contactId.isEmpty()) { throw  new ContactIdNotFoundException("Contact ID is not found"); }
         mapContactUpdate(contactUpdatesRequest, contact);
-        Contact contactUpdates = contactRepository.save(contact);
-        return mapContactUpdate(contactUpdates);
+        Contact updateContact = contactRepository.save(contact);
+        return mapContactUpdate(updateContact);
     }
 }
