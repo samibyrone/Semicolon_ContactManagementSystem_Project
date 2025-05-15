@@ -32,11 +32,6 @@ public class UserServiceImplementation implements UserService{
         return map(user);
     }
 
-    @Override
-    public Optional<User> findUserById(String userId) {
-        return Optional.empty();
-    }
-
     private void validateExistingEmail(String email) {
         boolean existsByEmail = userRepository.existsByEmail(email);
         if (existsByEmail) throw new EmailAlreadyExist("Email Already Exist");
@@ -45,6 +40,11 @@ public class UserServiceImplementation implements UserService{
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public Optional<User> findUserById(String userId) {
+        return Optional.empty();
     }
 
     @Override

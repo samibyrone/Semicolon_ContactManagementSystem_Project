@@ -12,7 +12,5 @@ public interface ContactRepository extends MongoRepository<Contact, String> {
 
     boolean existsById(String contactId);
 
-//    Optional <Contact> findById(String contactId);
-
     Optional <Contact> findContactByFirstName(String firstName);
 }
