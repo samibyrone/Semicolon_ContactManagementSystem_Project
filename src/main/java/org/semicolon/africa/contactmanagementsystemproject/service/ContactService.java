@@ -23,7 +23,7 @@ public interface ContactService {
 
     ContactRegisterResponse createContact(ContactRegisterRequest contactRegisterRequest);
 
-    ContactRemoveResponse removeContact(String contactId, ContactRemoveRequest contactRemoveRequest);
-
     ContactUpdatesResponse updateContact(String contactId, ContactUpdatesRequest contactUpdatesRequest);
+
+    ContactRemoveResponse removeContact(String contactId, ContactRemoveRequest contactRemoveRequest);
 }

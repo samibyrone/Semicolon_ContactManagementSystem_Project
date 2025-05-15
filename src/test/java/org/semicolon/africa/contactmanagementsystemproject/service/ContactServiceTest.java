@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import org.semicolon.africa.contactmanagementsystemproject.data.model.Contact;
 import org.semicolon.africa.contactmanagementsystemproject.data.repository.ContactRepository;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.ContactRegisterRequest;
 import org.semicolon.africa.contactmanagementsystemproject.dtos.requests.ContactRemoveRequest;
@@ -52,7 +51,7 @@ public class ContactServiceTest {
 
     @Test
     public void testThatContactSavedCanBeUpdated() {
-       ContactRegisterResponse contactResponse = contactRegister();
+        ContactRegisterResponse contactResponse = contactRegister();
         String contactId = contactResponse.getContactId();
         ContactUpdatesRequest updateRequest = new ContactUpdatesRequest();
         updateRequest.setFirstName("Johnson");
